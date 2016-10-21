@@ -48,6 +48,8 @@ class Init extends CakeMigration {
 
 /**
  * Migration description
+ * [Cakephpの決まり] 説明
+ * `cake Migrations.migration generate`で自動生成される。
  *
  * @var string
  */
@@ -55,6 +57,12 @@ class Init extends CakeMigration {
 
 /**
  * Actions to be performed
+ * [Cakephpの決まり] データパッチとかテーブルクリエイトとかする
+ * 'up' が上げる時に動作する。
+ * 'down' が戻す時に動作する。
+ * 'create_table'はテーブルを作成する。
+ * 'drop_table'はテーブルを削除する。
+ * `cake Migrations.migration generate`で自動生成される。
  *
  * @var array $migration
  */
@@ -106,6 +114,8 @@ class Init extends CakeMigration {
 
 /**
  * Before migration callback
+ * [Cakephpの決まり] マイグレーション実行前
+ * `cake Migrations.migration generate`で自動生成される。
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
@@ -116,6 +126,8 @@ class Init extends CakeMigration {
 
 /**
  * After migration callback
+ * [Cakephpの決まり] マイグレーション実行後
+ * `cake Migrations.migration generate`で自動生成される。
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
