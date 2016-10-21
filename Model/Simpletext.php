@@ -23,6 +23,19 @@ class Simpletext extends SimpletextsAppModel {
 
 /**
  * [Cakephpの決まり] use behaviors
+ * モデルの共通クラス
+ * http://book.cakephp.org/2.0/ja/models/behaviors.html
+ * > モデルのビヘイビアは、CakePHP のモデルに定義された機能のうちいくつかをまとめるひとつの方法です。 これを利用すると、継承を必要とせずに、典型的な挙動を示すロジックを分割し再利用することができます。
+ *
+ * 設定したビヘイビアの関数は、モデルの関数として使えるようになる。
+ * 例）
+ * ```php
+ * 	public $actsAs = array(
+ * 		'Workflow.WorkflowComment',
+ * 	);
+ * // Simpletextモデルに getCommentsByContentKey() 関数ないけど、$actsAsでWorkflowCommentBehaviorを設定しているから、呼び出せる。
+ * $this->getCommentsByContentKey('key');
+ *```
  *
  * @var array
  * @see MailQueueBehavior

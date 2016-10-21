@@ -12,7 +12,7 @@ App::uses('AppController', 'Controller');
 /**
  * Simpletexts AppController
  *
- * [Cakephpの決まり] プラグインのControllerの親クラス
+ * [Cakephpの決まり] XxxxAppControllerは、プラグインのControllerの親クラス
  *
  * @property Simpletext $Simpletext
  * @property SimpletextSetting $SimpletextSetting
@@ -28,7 +28,13 @@ class SimpletextsAppController extends AppController {
  * @var array
  */
 	public $components = array(
-		'Pages.PageLayout',	// [NetCommonsプラグイン] 画面遷移後などに、左右カラムの表示
-		'Security',			// [NetCommonsプラグイン] 設定しないとブロック設定の一覧表示で、別のシンプルテキスト選択時にSecurityComponent->blackHole()エラー
+		// [NetCommonsプラグイン] 画面遷移後などに、左右カラムの表示
+		// Plugin\Pages\Controller\Component\PageLayoutComponent.php
+		'Pages.PageLayout',
+		// [Cakephpの決まり] Security コンポーネント
+		// http://book.cakephp.org/2.0/ja/core-libraries/components/security-component.html
+		// > 自動的に CSRF とフォーム改ざんを 防止します。
+		// [NetCommonsプラグイン] 設定しないとブロック設定の一覧表示で、選択時にSecurityComponent->blackHole()エラーになった。
+		'Security',
 	);
 }

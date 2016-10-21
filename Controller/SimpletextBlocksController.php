@@ -12,14 +12,14 @@ App::uses('SimpletextsAppController', 'Simpletexts.Controller');
 /**
  * BlockRolePermissions Controller
  *
- * [NetCommonsプラグイン] XxxxxxBlocksControllerは他プラグインからほぼコピー
+ * [NetCommonsプラグイン作成] XxxxxxBlocksControllerは他プラグインからほぼコピー
  */
 class SimpletextBlocksController extends SimpletextsAppController {
 
 /**
  * layout
  *
- * [NetCommonsプラグイン]セッティング画面は下記必須
+ * [NetCommonsプラグイン作成] 設定画面は下記必須
  *
  * @var array
  */
