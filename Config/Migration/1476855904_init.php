@@ -10,11 +10,11 @@
 /**
  * Init CakeMigration
  *
- * [Cakephpの決まり] CakePHP 2系のCakeDC Migrationsプラグインで自動生成する
- * NetCommons3はCakeDC Migrationsプラグインを利用している。
- * Plugin\Migrations     <---CakeDC Migrationsプラグイン
+ * [NetCommonsプラグイン作成] phpdocは他のプラグインからコピーしてくる
  *
- * phpdocは他のプラグインからコピーしてくる
+ * [Cakephpの決まり] CakePHP 2系のCakeDC Migrationsプラグインで自動生成する
+ * NetCommons3はCakeDC Migrationsプラグイン( https://github.com/CakeDC/migrations )を利用している。
+ * Plugin\Migrations     <---CakeDC Migrationsプラグイン
  *
  * ### マイグレーションファイル
  *
@@ -38,6 +38,11 @@
  *
  * #### Simpletextsプラグインのマイグレーションを選んで実行する
  * $ Console/cake Migrations.migration run -c master -p Simpletexts
+ *
+ * ### 蛇足
+ *
+ * マイグレーションのクラス名は唯一、他のプラグインと同じでも問題ない。
+ * Cakephpでコントローラ等のクラス名が、他のプラグインと同じになると、なんらか不具合(Migrations.migration generateの途中停止等)が起きるので、同名クラスは避けるべき。
  */
 class Init extends CakeMigration {
 

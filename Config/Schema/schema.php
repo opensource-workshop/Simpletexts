@@ -10,11 +10,13 @@
 /**
  * Simpletexts CakeSchema
  *
- * [Cakephpの決まり] CakePHP 2系のCakeDC Migrationsプラグインで自動生成する
- * phpdocは他のプラグインからコピーしてくる
- * https://github.com/CakeDC/migrations CakeDC Migrations
+ * [NetCommonsプラグイン作成] phpdocは他のプラグインからコピーしてくる
  *
- * ### コマンドを実行すると２ファイル自動作成
+ * [Cakephpの決まり] CakePHP 2系のCakeDC Migrationsプラグインで自動生成する
+ * NetCommons3はCakeDC Migrationsプラグイン( https://github.com/CakeDC/migrations )を利用している。
+ * Plugin\Migrations     <---CakeDC Migrationsプラグイン
+ *
+ * ### データベースにCreate文でテーブルを作成してから、コマンドを実行すると２ファイル自動作成
  *
  * * app\Plugin\Simpletexts\Config\Schema\schema.php   (テーブル構成)
  * * app\Plugin\Simpletexts\Config\Migration\9999999999_＜記述名＞.php   (DBパッチ)

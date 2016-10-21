@@ -12,7 +12,9 @@ App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
 /**
  * Add plugin migration
  *
- * [NetCommonsプラグイン] 他のプラグインからコピー
+ * [NetCommonsプラグイン作成] 他のプラグインからコピーしてくる
+ *
+ * このマイグレーションを実行する事で、「プラグイン追加」に表示される
  */
 class PluginRecords extends NetCommonsMigration {
 
@@ -39,26 +41,27 @@ class PluginRecords extends NetCommonsMigration {
  * @var array $migration
  */
 	public $records = array(
+		// [NetCommonsプラグイン作成] プラグインによって内容を変更する
 		'Plugin' => array(
 			//日本語
 			array(
 				'language_id' => '2',
 				'key' => 'simpletexts',
 				'namespace' => 'netcommons/simpletexts',
-				'name' => 'シンプルテキスト',
+				'name' => 'シンプルテキスト',							// プラグイン名（日本語）
 				'type' => 1,
-				'default_action' => 'simpletexts/view',
-				'default_setting_action' => 'simpletext_blocks/index',
+				'default_action' => 'simpletexts/view',					// 初期表示アクション
+				'default_setting_action' => 'simpletext_blocks/index',	// 設定初期表示アクション
 			),
 			//英語
 			array(
 				'language_id' => '1',
 				'key' => 'simpletexts',
 				'namespace' => 'netcommons/simpletexts',
-				'name' => 'Simpletexts',
+				'name' => 'Simpletexts',								// プラグイン名（英語）
 				'type' => 1,
-				'default_action' => 'simpletexts/view',
-				'default_setting_action' => 'simpletext_blocks/index',
+				'default_action' => 'simpletexts/view',					// 初期表示アクション
+				'default_setting_action' => 'simpletext_blocks/index',	// 設定初期表示アクション
 			),
 		),
 		'PluginsRole' => array(
@@ -67,6 +70,7 @@ class PluginRecords extends NetCommonsMigration {
 				'plugin_key' => 'simpletexts',
 			),
 		),
+		// プラグインをどこのスペースに配置できるか設定
 		'PluginsRoom' => array(
 			//パブリックスペース
 			array('room_id' => '1', 'plugin_key' => 'simpletexts', ),
