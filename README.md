@@ -14,7 +14,7 @@ FreeBSD License は BSD 2-Clause Licenseです。[詳しくはこちら](https:/
 
 ## 目的
 
-NetCommons3の追加プラグインの各処理でどういった処理を行っているか理解を深める。
+NetCommons3の追加プラグインの各処理で、どういった処理を行っているか理解を深める。
 
 初めてNetCommons3の追加プラグインを開発する方にもわかるように、下記のような感じで、ここは[Cakephpの決まり]、ここは[NetCommons独自]や[NetCommonsプラグイン]とコメント多めで作成しています。<br />
 https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/SimpletextsController.php
