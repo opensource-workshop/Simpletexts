@@ -70,14 +70,17 @@ class PluginRecords extends NetCommonsMigration {
 				'default_setting_action' => 'simpletext_blocks/index',	// 設定初期表示アクション
 			),
 		),
-		// 内容書く
-		'PluginsRole' => array(
-			array(
-				'role_key' => 'room_administrator',
-				'plugin_key' => 'simpletexts',
-			),
-		),
-		// 初期データであるルームにプラグインを配置できるように設定
+		// [NetCommonsプラグイン作成] plugins_rolesテーブル（どのロール（administratorやsystem_administrator）が管理プラグインを使えるか）。
+		// 管理プラグインでない場合、登録不要。
+		//room_administratorのデータは一般プラグインなので、使ってないと思われる（https://github.com/NetCommons3/NetCommons3/issues/729）
+		// 一般プラグインが使えるかどうかは、plugins_roomsテーブル（どのルームでプラグインが使えるか）で管理している。
+		//'PluginsRole' => array(
+		//	array(
+		//		'role_key' => 'room_administrator',
+		//		'plugin_key' => 'simpletexts',
+		//	),
+		//),
+		// [NetCommonsプラグイン作成] 初期データであるルームにプラグインを配置できるように設定
 		// PluginsRoomの該当ルームにないプラグインは配置できない
 		'PluginsRoom' => array(
 			//パブリックスペース
