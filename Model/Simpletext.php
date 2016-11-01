@@ -51,6 +51,12 @@ class Simpletext extends SimpletextsAppModel {
 		'NetCommons.OriginalKey',		// save時、自動でkeyセット
 		'Workflow.Workflow',			// save時、自動でis_active, is_latestセット
 		'Workflow.WorkflowComment',
+		// [NetCommons独自] メール送信に必要。登録・編集時にメールキューに溜める
+		'Mails.MailQueue' => array(
+			'embedTags' => array(
+				'X-BODY' => 'Simpletext.textarea',
+			),
+		),
 	);
 
 /**
