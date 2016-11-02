@@ -19,6 +19,7 @@ NetCommons3の追加プラグインの各処理で、どういった処理を行
 初めてNetCommons3の追加プラグインを開発する方にもわかるように、下記のような感じで、ここは[Cakephpの決まり]、ここは[NetCommons独自]や[NetCommonsプラグイン]とコメント多めで作成しています。<br />
 https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/SimpletextsController.php
 
+少しでもNetCommons3プラグイン開発者の助けになるのであれば幸いです。
 
 ## 作業状況・残タスク
 
