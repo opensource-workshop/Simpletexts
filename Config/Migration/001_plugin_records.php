@@ -95,7 +95,7 @@ class PluginRecords extends NetCommonsMigration {
 /**
  * Before migration callback
  * [Cakephpの決まり] マイグレーション実行前
- * `cake Migrations.migration generate`で自動生成される。
+ * `cake Migrations.migration generate`で下記のfunctionが自動生成される。
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
@@ -107,23 +107,37 @@ class PluginRecords extends NetCommonsMigration {
 /**
  * After migration callback
  * [Cakephpの決まり] マイグレーション実行後
- * `cake Migrations.migration generate`で自動生成される。
+ * `cake Migrations.migration generate`で下記のfunctionが自動生成される。
+ * function内に処理があったら、それは独自で何か実装している。
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
  */
 	public function after($direction) {
-		// [NetCommons独自] 内容書く
+		// [NetCommons独自] モデルの読み込み。phpunitテスト時はtest設定のデータベースを参照してくれる。親クラスのfunction。
+		// \Plugin\NetCommons\Config\Migration\NetCommonsMigration::loadModels()
+		// コントローラの`$uses = ['Simpletexts.Simpletext']`とモデル名を設定すると、`$this->Simpletext`で使えるようになる仕組みをまねて、
+		// マイグレーションでも同じような事ができるようにfunctionで独自実装している。
+		// これはマイグレーション版で、モデル版のloadModelsもNetCommons独自実装として存在する。
+		//
+		// ちょっと下の $this->Plugin->uninstallPlugin()を使うために、$this->loadModels()を使っている。
 		$this->loadModels([
 			'Plugin' => 'PluginManager.Plugin',
 		]);
 
+		// [Cakephpの決まり] マイグレーションで down、つまりバージョンダウンのオプションが指定された時に動く動作
 		if ($direction === 'down') {
+			// [NetCommons独自] プラグイン関係のデータ（Plugin、PluginsRole、PluginsRoom）を削除する
+			// \Plugin\PluginManager\Model\Behavior\PluginBehavior::uninstallPlugin()
+			// PluginBehavior::uninstallPlugin()は、Pluginモデル（\Plugin\PluginManager\Model\Plugin.php）の$actsAsで設定されたビヘイビアのため、
+			// 下記のように呼び出せる。
 			$this->Plugin->uninstallPlugin($this->records['Plugin'][0]['key']);
 			return true;
 		}
 
 		foreach ($this->records as $model => $records) {
+			// [NetCommons独自] $this->recordsを1件づつ登録する。親クラスのfunction。
+			// \Plugin\NetCommons\Config\Migration\NetCommonsMigration::updateRecords();
 			if (!$this->updateRecords($model, $records)) {
 				return false;
 			}

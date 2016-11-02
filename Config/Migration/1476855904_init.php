@@ -115,7 +115,7 @@ class Init extends CakeMigration {
 /**
  * Before migration callback
  * [Cakephpの決まり] マイグレーション実行前
- * `cake Migrations.migration generate`で自動生成される。
+ * `cake Migrations.migration generate`で下記のfunctionが自動生成される。
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
@@ -127,7 +127,7 @@ class Init extends CakeMigration {
 /**
  * After migration callback
  * [Cakephpの決まり] マイグレーション実行後
- * `cake Migrations.migration generate`で自動生成される。
+ * `cake Migrations.migration generate`で下記のfunctionが自動生成される。
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
