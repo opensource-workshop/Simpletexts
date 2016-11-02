@@ -9,7 +9,7 @@ HTMLチェックや自動修正を行わないことが特徴です。<br />
 
 ## ライセンス
 
-[LICENSE](LICENSE) ファイルを参照してください。（FreeBSD License）<br />
+[FreeBSD License](LICENSE)<br />
 FreeBSD License は BSD 2-Clause Licenseです。[詳しくはこちら](https://opensource.org/licenses)
 
 ## 目的
