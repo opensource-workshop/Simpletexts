@@ -43,11 +43,14 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
  * @var array
  */
 	public $helpers = array(
-		// [NetCommonsプラグイン] 設定画面のタブ表示のHelper
+		// [NetCommons独自] 設定画面のタブ表示
+		// Plugin\Blocks\View\Helper\BlockTabsHelper.php
 		'Blocks.BlockTabs' => array(
 			'mainTabs' => array('block_index', 'frame_settings'),
 			'blockTabs' => array('block_settings', 'mail_settings', 'role_permissions'),
 		),
+		// [NetCommons独自] １ページ毎の表示件数プルダウン部品
+		// Plugin\NetCommons\View\Helper\DisplayNumberHelper.php
 		'NetCommons.DisplayNumber',
 	);
 
