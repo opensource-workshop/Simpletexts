@@ -98,11 +98,17 @@ class SimpletextMailSettingsController extends MailSettingsController {
  * @var array
  */
 	public $helpers = array(
+		// [NetCommons独自] 権限設定の入力項目部品
+		// Plugin\Blocks\View\Helper\BlockRolePermissionFormHelper.php
 		'Blocks.BlockRolePermissionForm',
+		// [NetCommons独自] 設定画面のタブ表示
+		// Plugin\Blocks\View\Helper\BlockTabsHelper.php
 		'Blocks.BlockTabs' => array(
 			'mainTabs' => array('block_index', 'frame_settings'),
 			'blockTabs' => array('block_settings', 'mail_settings', 'role_permissions'),
 		),
+		// [NetCommons独自] メール設定の入力項目部品
+		// Plugin\Mails\View\Helper\MailFormHelper.php
 		'Mails.MailForm',
 	);
 
