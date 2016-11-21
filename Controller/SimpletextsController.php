@@ -100,7 +100,7 @@ class SimpletextsController extends SimpletextsAppController {
  * @see NetCommonsAppController::$helpers
  */
 	public $helpers = array(
-		'Workflow.Workflow',	// [NetCommons] 承認コメント入力に必要
+		'Workflow.Workflow',	// [NetCommons独自] 承認コメント入力に必要
 	);
 
 /**
