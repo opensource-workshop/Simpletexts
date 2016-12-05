@@ -287,4 +287,20 @@ class SimpletextsController extends SimpletextsAppController {
 		// [NetCommons独自] 表示する承認コメントは必ず 'comments' でセットする。（別名つけるとエラーにはならず、表示されなくなる）
 		$this->set('comments', $comments);
 	}
+
+
+/**
+ * 削除
+ *
+ * @throws BadRequestException
+ * @return void
+ */
+	public function delete() {
+		if (! $this->request->is('delete')) {
+			return $this->throwBadRequest();
+		}
+
+		$this->Simpletext->deleteSimpletext($this->data);
+		$this->redirect(NetCommonsUrl::backToPageUrl());
+	}
 }
