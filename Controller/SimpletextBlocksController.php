@@ -33,6 +33,7 @@ class SimpletextBlocksController extends SimpletextsAppController {
 	public $uses = array(
 		'Simpletexts.Simpletext',
 		'Simpletexts.SimpletextFrameSetting',
+		'Simpletexts.SimpletextSetting',
 	);
 
 /**
