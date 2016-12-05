@@ -125,16 +125,14 @@ class Simpletext extends SimpletextsAppModel {
 	}
 
 /**
- * [Cakephpの決まり] 保存後
+ * [Cakephpの決まり] 保存前
  *
- * @param bool $created True if this save created a new record
  * @param array $options Options passed from Model::save().
- * @return void
- * @throws InternalErrorException
- * @link http://book.cakephp.org/2.0/ja/models/callback-methods.html#aftersave
+ * @return bool True if the operation should continue, false if it should abort
+ * @link http://book.cakephp.org/2.0/ja/models/callback-methods.html#beforesave
  * @see Model::save()
  */
-	public function afterSave($created, $options = array()) {
+	public function beforeSave($options = array()) {
 		$this->loadModels([
 			'SimpletextSetting' => 'Simpletexts.SimpletextSetting',
 			'SimpletextFrameSetting' => 'Simpletexts.SimpletextFrameSetting',
@@ -152,7 +150,7 @@ class Simpletext extends SimpletextsAppModel {
 			$this->SimpletextFrameSetting->save(null, false);
 		}
 
-		parent::afterSave($created, $options);
+		parent::beforeSave($options);
 	}
 
 /**
