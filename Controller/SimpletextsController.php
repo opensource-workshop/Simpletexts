@@ -103,39 +103,40 @@ class SimpletextsController extends SimpletextsAppController {
 		'Workflow.Workflow',	// [NetCommons独自] 承認コメント入力に必要
 	);
 
-/**
- * [Cakephpの決まり] beforeFilter
- * http://book.cakephp.org/2.0/ja/controllers.html#Controller::beforeFilter
- * > コントローラの各アクションの前に実行されます
- *
- * [NetCommons独自] 継承した親クラス NetCommonsAppControllerにも beforeFilter() あり
- *
- * @return void
- * @see NetCommonsAppController::beforeFilter()
- */
-	public function beforeFilter() {
-		// [Cakephpの決まり]
-		// http://book.cakephp.org/2.0/ja/controllers.html#appcontroller
-		// > 子コントローラのコールバック中で AppController のコールバックを呼び出すのは、 このようにするのがベストです。
-		parent::beforeFilter();
-
-		// [NetCommons独自] ブロック未選択は、何も表示しない
-		// Plugin\NetCommons\Utility\Current::read()
-		// staticなので、コントローラー、モデル、ビュー等どこでも呼び出せて便利な function
-		// Current::$currentに値のセットしているのは、
-		// SimpletextsController::beforeFilter (呼び出し)--> NetCommonsAppController::beforeFilter() (呼び出し)--> Current::initialize() (呼び出し)--> CurrentFrame->initialize() (呼び出し)--> CurrentFrame::setBlock() ここ
-		if (! Current::read('Block.id')) {
-			// [NetCommons独自] 何も表示しません。
-			// setAction()を使って、親クラスで継承しているNetCommonsAppController::emptyRenderを呼んでいます。
-			// [Cakephpの決まり] setAction()、Action間の移動を可能にするsetAction関数
-			// http://api.cakephp.org/2.9/class-Controller.html#_setAction
-			// vendors\cakephp\cakephp\lib\Cake\Controller\Controller::setAction()
-			// [NetCommons独自] emptyRender()
-			// Plugin\NetCommons\Controller\NetCommonsAppController::emptyRender()
-			$this->setAction('emptyRender');
-			return false;
-		}
-	}
+	// 以下の処理はシンプルテキストには不要でした。
+	///**
+	// * [Cakephpの決まり] beforeFilter
+	// * http://book.cakephp.org/2.0/ja/controllers.html#Controller::beforeFilter
+	// * > コントローラの各アクションの前に実行されます
+	// *
+	// * [NetCommons独自] 継承した親クラス NetCommonsAppControllerにも beforeFilter() あり
+	// *
+	// * @return void
+	// * @see NetCommonsAppController::beforeFilter()
+	// */
+	//	public function beforeFilter() {
+	//		// [Cakephpの決まり]
+	//		// http://book.cakephp.org/2.0/ja/controllers.html#appcontroller
+	//		// > 子コントローラのコールバック中で AppController のコールバックを呼び出すのは、 このようにするのがベストです。
+	//		parent::beforeFilter();
+	//
+	//		// [NetCommons独自] ブロック未選択は、何も表示しない
+	//		// Plugin\NetCommons\Utility\Current::read()
+	//		// staticなので、コントローラー、モデル、ビュー等どこでも呼び出せて便利な function
+	//		// Current::$currentに値のセットしているのは、
+	//		// SimpletextsController::beforeFilter (呼び出し)--> NetCommonsAppController::beforeFilter() (呼び出し)--> Current::initialize() (呼び出し)--> CurrentFrame->initialize() (呼び出し)--> CurrentFrame::setBlock() ここ
+	//		if (! Current::read('Block.id')) {
+	//			// [NetCommons独自] 何も表示しません。
+	//			// setAction()を使って、親クラスで継承しているNetCommonsAppController::emptyRenderを呼んでいます。
+	//			// [Cakephpの決まり] setAction()、Action間の移動を可能にするsetAction関数
+	//			// http://api.cakephp.org/2.9/class-Controller.html#_setAction
+	//			// vendors\cakephp\cakephp\lib\Cake\Controller\Controller::setAction()
+	//			// [NetCommons独自] emptyRender()
+	//			// Plugin\NetCommons\Controller\NetCommonsAppController::emptyRender()
+	//			$this->setAction('emptyRender');
+	//			return false;
+	//		}
+	//	}
 
 /**
  * 詳細
