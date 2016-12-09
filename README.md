@@ -21,6 +21,71 @@ https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/Simple
 
 少しでもNetCommons3プラグイン開発者の助けになるのであれば幸いです。
 
+## プラグインインストール・アンインストール
+
+### インストール
+
+(1) Pluginディレクトリ配下にSimpletestsプラグインのソースを配置します。ソースはgithubからzipをダウンロード後、解凍します
+```
+配置例）/var/www/app/app/Plugin/Simpletexts
+```
+(2) cakeコマンドを使ってmigrationを実行します。（実行するとDBに初期データが登録されます）
+```
+# cd /var/www/app/app
+# Console/cake Migrations.migration run all -c master -p Simpletexts
+
+Cake Migration Shell
+---------------------------------------------------------------
+You did not set a migration connection (-i), which connection do you want to use? (master/slave1/test)
+[master] >      (←空エンター)
+Running migrations:
+  [001] 001_plugin_records
+
+  [002] 002_mail_setting_records
+
+  [1476855904] 1476855904_init (2016-10-19 05:45:04)
+      > Creating table "simpletext_frame_settings".
+      > Creating table "simpletexts".
+
+---------------------------------------------------------------
+All migrations have completed.
+```
+
+これで画面のプラグイン追加に、シンプルテキストが表示されます。
+
+### アンインストール
+
+(1) cakeコマンドを使ってmigrationのdownオプションを実行します。（実行するとDBデータが削除されます）
+```
+# cd /var/www/app/app
+# Console/cake Migrations.migration run down -c master -p Simpletexts
+
+Cake Migration Shell
+---------------------------------------------------------------
+You did not set a migration connection (-i), which connection do you want to use? (master/slave1/test)
+[master] >      (←空エンター)
+Running migrations:
+  [1476855904] 1476855904_init (2016-10-19 05:45:04)
+      > Dropping table "simpletext_frame_settings".
+      > Dropping table "simpletexts".
+
+---------------------------------------------------------------
+All migrations have completed.
+```
+
+(2) 複数回上記作業を繰り返します。下記メッセージが表示されたら、全て削除されています。
+
+```
+# Console/cake Migrations.migration run down -c master -p Simpletexts
+Cake Migration Shell
+---------------------------------------------------------------
+You did not set a migration connection (-i), which connection do you want to use? (master/slave1/test)
+[master] >      (←空エンター)
+Not a valid migration version.
+```
+
+これでアンインストール完了です。
+
 ## 作業状況・残タスク
 
 [issue](https://github.com/opensource-workshop/Simpletexts/issues)を参照してください。
