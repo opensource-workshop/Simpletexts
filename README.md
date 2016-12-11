@@ -27,11 +27,11 @@ https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/Simple
 
 (1) Pluginディレクトリ配下にSimpletestsプラグインのソースを配置します。ソースはgithubからzipをダウンロード後、解凍します
 ```
-配置例）/var/www/app/app/Plugin/Simpletexts
+配置例）/var/www/app/Plugin/Simpletexts
 ```
 (2) cakeコマンドを使ってmigrationを実行します。（実行するとDBに初期データが登録されます）
 ```
-# cd /var/www/app/app
+# cd /var/www/app
 # Console/cake Migrations.migration run all -c master -p Simpletexts
 
 Cake Migration Shell
@@ -57,7 +57,7 @@ All migrations have completed.
 
 (1) cakeコマンドを使ってmigrationのdownオプションを実行します。（実行するとDBデータが削除されます）
 ```
-# cd /var/www/app/app
+# cd /var/www/app
 # Console/cake Migrations.migration run down -c master -p Simpletexts
 
 Cake Migration Shell
