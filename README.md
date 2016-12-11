@@ -51,6 +51,12 @@ Running migrations:
 All migrations have completed.
 ```
 
+(3) DBキャッシュファイルのオーナーをapacheのオーナーに変更する
+
+```
+# chown -R apache:apache /var/www/html/app/tmp/cache/*
+```
+
 これで画面のプラグイン追加に、シンプルテキストが表示されます。
 
 ### アンインストール
