@@ -96,12 +96,12 @@ Not a valid migration version.
 
 |ディレクトリ・ファイル|説明|
 |---|---|
-|Config    |cakephpプラグインの関連。CakeDC/migrationsプラグインのマイグレーションファイル。内容によりデータベースのテーブル作成やデータ追加・更新等が出来る|
-|Controller|cakephpプラグイン関連。メインの処理関連|
-|Locale    |cakephpプラグイン関連。言語ファイル関連|
-|Model     |cakephpプラグイン関連。データベース関連|
+|Config    |cakephpプラグインの関連。CakeDC/migrationsプラグインのマイグレーションファイル関連ディレクトリ。内容によりデータベースのテーブル作成やデータ追加・更新等が出来る|
+|Controller|cakephpプラグイン関連。メイン処理関連のディレクトリ|
+|Locale    |cakephpプラグイン関連。言語ファイル関連のディレクトリ|
+|Model     |cakephpプラグイン関連。データベース関連のディレクトリ|
 |Test      |cakephpプラグイン関連。phpunitテストファイル。本番運用時には不要なディレクトリ|
-|View      |cakephpプラグイン関連。画面関連|
+|View      |cakephpプラグイン関連。画面関連のディレクトリ|
 |.gitignore|gitで管理しないファイルを記した設定ファイル|
 |LICENSE   |プログラムライセンスを記したテキストファイル|
 |README.md |github.comのリポジトリTOPページで表示される、マークダウン方式のReadMeファイル（当ファイル）|
