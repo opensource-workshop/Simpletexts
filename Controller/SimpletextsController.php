@@ -297,10 +297,21 @@ class SimpletextsController extends SimpletextsAppController {
  * @return void
  */
 	public function delete() {
+		// [Cakephpの決まり] $this->request->is('delete')
+		// $this->edit() の説明と同様
+		// delete処理なので、delete以外のリクエストは例外スローしてる
 		if (! $this->request->is('delete')) {
+			// 異常処理
+			//
+			// [NetCommons独自] 例外 BadRequestExceptionをスローする。ajax対応済み
+			// Plugin\NetCommons\Controller\NetCommonsAppController::throwBadRequest()
+			// throwBadRequest()は戻り値はないけど、return $this->throwBadRequest();としているのは、ajax(JSON)対応のため。
+			// ajaxで処理がきた場合、throw new BadRequestException();を通ってもthrowされず、後続の処理が実行されるため、returnしている。
+			// 蛇足：2016/12/17時点でNetCommons対応のCakephpプラグインの中で、ajax処理は使ってないと思う
 			return $this->throwBadRequest();
 		}
-
+		// 正常処理
+		//
 		$this->Simpletext->deleteSimpletext($this->data);
 		$this->redirect(NetCommonsUrl::backToPageUrl());
 	}
