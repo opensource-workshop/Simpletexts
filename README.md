@@ -92,6 +92,20 @@ Not a valid migration version.
 
 これでアンインストール完了です。
 
+## ディレクトリ説明
+
+|ディレクトリ・ファイル|説明|
+|---|---|
+|Config    |cakephpプラグインの関連。CakeDC/migrationsプラグインのマイグレーションファイル。内容によりデータベースのテーブル作成やデータ追加・更新等が出来る|
+|Controller|cakephpプラグイン関連。メインの処理関連|
+|Locale    |cakephpプラグイン関連。言語ファイル関連|
+|Model     |cakephpプラグイン関連。データベース関連|
+|Test      |cakephpプラグイン関連。phpunitテストファイル。本番運用時には不要なディレクトリ|
+|View      |cakephpプラグイン関連。画面関連|
+|.gitignore|gitで管理しないファイルを記した設定ファイル|
+|LICENSE   |プログラムライセンスを記したテキストファイル|
+|README.md |github.comのリポジトリTOPページで表示される、マークダウン方式のReadMeファイル（当ファイル）|
+
 ## 作業状況・残タスク
 
 [issue](https://github.com/opensource-workshop/Simpletexts/issues)を参照してください。
