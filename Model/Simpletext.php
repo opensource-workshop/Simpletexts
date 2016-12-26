@@ -16,6 +16,7 @@ class Simpletext extends SimpletextsAppModel {
 
 /**
  * 概要の文字数
+ * view等で使う定数を定義
  *
  * @var int
  */

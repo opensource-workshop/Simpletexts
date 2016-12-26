@@ -7,6 +7,8 @@
  * @copyright 2007 OpenSource-WorkShop Co.,Ltd.
  */
 
+// [Cakephpの決まり] Cakephp用のinclude
+// http://book.cakephp.org/2.0/ja/core-utility-libraries/app.html#App::uses
 App::uses('SimpletextsAppController', 'Simpletexts.Controller');
 
 /**

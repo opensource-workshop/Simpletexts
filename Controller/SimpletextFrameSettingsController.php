@@ -17,7 +17,8 @@ App::uses('SimpletextsAppController', 'Simpletexts.Controller');
 class SimpletextFrameSettingsController extends SimpletextsAppController {
 
 /**
- * layout
+ * [Cakephpの決まり] layout
+ * http://book.cakephp.org/2.0/ja/views.html#view-layouts
  *
  * @var array
  */
