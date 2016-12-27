@@ -13,6 +13,8 @@ App::uses('SimpletextsAppController', 'Simpletexts.Controller');
 
 /**
  * Simpletexts Controller
+ *
+ * [Cakephpの決まり] XxxxAppControllerを継承する
  */
 class SimpletextsController extends SimpletextsAppController {
 
