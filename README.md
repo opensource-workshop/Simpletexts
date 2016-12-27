@@ -96,7 +96,7 @@ Not a valid migration version.
 
 |ディレクトリ・ファイル|説明|
 |---|---|
-|Config    |cakephpプラグインの関連。CakeDC/migrationsプラグインのマイグレーションファイル関連ディレクトリ。内容によりデータベースのテーブル作成やデータ追加・更新等が出来る|
+|Config    |cakephpプラグインの関連。[CakeDC/migrationsプラグイン](https://github.com/CakeDC/migrations)のマイグレーションファイル関連ディレクトリ。設定によりcakeコマンドでデータベースのテーブル作成やデータ追加・更新等が出来る|
 |Controller|cakephpプラグイン関連。メイン処理関連のディレクトリ|
 |Locale    |cakephpプラグイン関連。言語ファイル関連のディレクトリ|
 |Model     |cakephpプラグイン関連。データベース関連のディレクトリ|
