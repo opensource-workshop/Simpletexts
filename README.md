@@ -108,4 +108,4 @@ Not a valid migration version.
 
 ## 作業状況・残タスク
 
-[issue](https://github.com/opensource-workshop/Simpletexts/issues)を参照してください。
+[Issue](https://github.com/opensource-workshop/Simpletexts/issues)を参照してください。
