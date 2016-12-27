@@ -7,10 +7,14 @@
  * @copyright 2007 OpenSource-WorkShop Co.,Ltd.
  */
 
+// [Cakephpの決まり] Cakephp用のinclude
+// http://book.cakephp.org/2.0/ja/core-utility-libraries/app.html#App::uses
 App::uses('SimpletextsAppModel', 'Simpletexts.Model');
 
 /**
  * Summary for Simpletext Model
+ *
+ * [Cakephpの決まり] XxxxAppModelを継承する
  */
 class Simpletext extends SimpletextsAppModel {
 
@@ -42,17 +46,32 @@ class Simpletext extends SimpletextsAppModel {
  * @see MailQueueBehavior
  */
 	public $actsAs = array(
+		// [NetCommons独自] ブロック関係をsave, delete
+		// Plugin\Blocks\Model\Behavior\BlockBehavior.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Blocks/classes/BlockBehavior.html
 		'Blocks.Block' => array(
+			// [name] ブロック名を下記のようなフィールド名で指定
 			'name' => 'Simpletext.textarea',
+			// [nameHtml] true にすると、strip_tags等行って、ブロック名を生成する。結果空になったら"（テキストなし）"をセット
 			'nameHtml' => true,
+			// [loadModels] save, delete時にloadModels()してくれる
+			// delete時にblock_id, block_keyで紐づいてるデータ削除
 			'loadModels' => array(
 				'BlockSetting' => 'Blocks.BlockSetting',
 			)
 		),
-		'NetCommons.OriginalKey',		// save時、自動でkeyセット
-		'Workflow.Workflow',			// save時、自動でis_active, is_latestセット
+		// [NetCommons独自] save時、自動でkeyセット
+		// Plugin\NetCommons\Model\Behavior\OriginalKeyBehavior.php
+		'NetCommons.OriginalKey',
+		// [NetCommons独自] save時、自動でis_active, is_latestセット
+		// Plugin\Workflow\Model\Behavior\WorkflowBehavior.php
+		'Workflow.Workflow',
+		// [NetCommons独自] 承認コメントのsave, delete
+		// Plugin\Workflow\Model\Behavior\WorkflowCommentBehavior.php
 		'Workflow.WorkflowComment',
-		// [NetCommons独自] メール送信に必要。登録・編集時にメールキューに溜める
+		// [NetCommons独自] メール送信に必要。登録・編集時に自動でメールキューの登録, 削除。ワークフロー利用時はWorkflow.Workflowより下に記述する
+		// Plugin\Mails\Model\Behavior\MailQueueBehavior.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Mails/classes/MailQueueBehavior.html#method_setup
 		'Mails.MailQueue' => array(
 			'embedTags' => array(
 				'X-BODY' => 'Simpletext.textarea',
