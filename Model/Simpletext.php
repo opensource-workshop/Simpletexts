@@ -55,7 +55,10 @@ class Simpletext extends SimpletextsAppModel {
 			// [nameHtml] true にすると、strip_tags等行って、ブロック名を生成する。結果空になったら"（テキストなし）"をセット
 			'nameHtml' => true,
 			// [loadModels] save, delete時にloadModels()してくれる
-			// delete時にblock_id, block_keyで紐づいてるデータ削除
+			// loadModels()とは、モデルで使える $this->loadModels() の事。ClassRegistry::init()を使ってモデルをnewして、クラス変数（$this->$model）にセットしてくれる。
+			// Plugin\NetCommons\Model\NetCommonsAppModel::loadModels()
+			// ブロック削除時（delete時）にblock_id, block_keyで紐づいてるデータ削除
+			// そのため、関連しているmodelはこのloadModelsに書いておけば、ブロック削除時に自動的に削除してくれる
 			'loadModels' => array(
 				'BlockSetting' => 'Blocks.BlockSetting',
 			)
@@ -87,6 +90,7 @@ class Simpletext extends SimpletextsAppModel {
  * @link http://book.cakephp.org/2.0/ja/models/associations-linking-models-together.html アソシエーション: モデル同士を繋ぐ
  */
 	public $belongsTo = array(
+		// Plugin\Blocks\Model\Block.php を紐づけてる
 		'Block' => array(
 			'className' => 'Blocks.Block',
 			'foreignKey' => 'block_id',
@@ -109,6 +113,7 @@ class Simpletext extends SimpletextsAppModel {
 
 /**
  * [Cakephpの決まり] validate 実行前
+ * http://book.cakephp.org/2.0/ja/models/data-validation.html
  *
  * @param array $options Options passed from Model::save().
  * @return bool True if validate operation should continue, false to abort
@@ -116,6 +121,8 @@ class Simpletext extends SimpletextsAppModel {
  * @see Model::save()
  */
 	public function beforeValidate($options = array()) {
+		// [Cakephpの決まり] Hash::merge() - Arrayをマージします
+		// http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::merge
 		$this->validate = Hash::merge($this->validate, array(
 			'language_id' => array(
 				'numeric' => array(
@@ -141,6 +148,7 @@ class Simpletext extends SimpletextsAppModel {
 			),
 		));
 
+		// [phpの決まり] 継承を考慮して parent(親) のファンクションを呼び出す
 		return parent::beforeValidate($options);
 	}
 
@@ -153,6 +161,10 @@ class Simpletext extends SimpletextsAppModel {
  * @see Model::save()
  */
 	public function beforeSave($options = array()) {
+		// [NetCommons独自] ClassRegistry::init()を使ってモデルをnewして、クラス変数（$this->$model）にセットしてくれる。
+		// Plugin\NetCommons\Model\NetCommonsAppModel::loadModels()
+		// 元ネタは、[Cakephpの決まり] Controller::loadModel()。これをモデルでも使えるようにアレンジしたもの
+		// http://book.cakephp.org/2.0/ja/controllers.html#Controller::loadModel
 		$this->loadModels([
 			'SimpletextSetting' => 'Simpletexts.SimpletextSetting',
 			'SimpletextFrameSetting' => 'Simpletexts.SimpletextFrameSetting',
@@ -160,7 +172,11 @@ class Simpletext extends SimpletextsAppModel {
 
 		//SimpletextSetting登録
 		if (isset($this->data['SimpletextSetting'])) {
+			// [cakephpの決まり] Model::set()
+			// http://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-set-one-two-null
 			$this->SimpletextSetting->set($this->data['SimpletextSetting']);
+			// [cakephpの決まり] Model::save()
+			// http://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-save-array-data-null-boolean-validate-true-array-fieldlist-array
 			$this->SimpletextSetting->save(null, false);
 		}
 
@@ -170,11 +186,13 @@ class Simpletext extends SimpletextsAppModel {
 			$this->SimpletextFrameSetting->save(null, false);
 		}
 
+		// [phpの決まり] 継承を考慮して parent(親) のファンクションを呼び出す
 		parent::beforeSave($options);
 	}
 
 /**
  * 取得
+ * [NetCommons独自] ファンクション名 get(動詞)+Simpletext(モデル名)
  *
  * @return array
  */
@@ -184,12 +202,33 @@ class Simpletext extends SimpletextsAppModel {
 			'SimpletextFrameSetting' => 'Simpletexts.SimpletextFrameSetting',
 		]);
 
+		// [NetCommons独自] Current::permission()
+		// Plugin\NetCommons\Utility\Current::permission()
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/NetCommons/classes/Current.html
+		// ユーザにパーミッション（操作許可）があるかチェックできるファンクション。
+		//
+		// コンテンツ編集許可があるか
+		// Current::permission('content_editable')
+		//
+		// NC2では、操作できる・できないは権限（システム管理者、主担等）に紐づいて切り離せないものでしたが、
+		// NC3では、権限とは別に、ルームの役割（ロール：ルーム管理者、編集長、編集者等）にパーミッションがくっついているデータ構造のため、柔軟に操作できる・できないを変える事もできます。
+		// [蛇足] 2016-12-29時点で、パーミッションを自在に変える画面は用意されていないので、変えるとすればDB値を直接変える必要があります。
+		//
+		// NetCommonsの便利クラス Current
+		// - NetCommonsAppController::beforeFilter で初期処理が呼び出され、値が設定されます。
+		// - NetCommonsAppControllerは、全てのプラグインのコントローラの共通の親クラスなので、画面系ならコントローラーが動くので、コントローラー以降に動くモデルやビューでも Current クラスを使う事ができます。
 		if (Current::permission('content_editable')) {
+			// コンテンツ編集許可ありなら、最新版を取得条件に追加
 			$conditions[$this->alias . '.is_latest'] = true;
 		} else {
+			// コンテンツ編集許可なしなら、表示している版（最新版ではない）を取得条件に追加
 			$conditions[$this->alias . '.is_active'] = true;
 		}
+		// [Cakephpの決まり] $this->find() DB検索
+		// http://book.cakephp.org/2.0/ja/models/retrieving-your-data.html#find
 		$simpletext = $this->find('first', array(
+			// [recursive] 下記URLはcakephp1.xのrecursive図だけど、cakephp2.xでも通用して、わかりやすいです
+			// http://www.cpa-lab.com/tech/081
 			'recursive' => 0,
 			'conditions' => $this->getBlockConditionById($conditions),
 		));
@@ -204,6 +243,7 @@ class Simpletext extends SimpletextsAppModel {
 
 /**
  * 保存
+ * [NetCommons独自] ファンクション名 save(動詞)+Simpletext(モデル名)
  *
  * @param array $data received post data
  * @return mixed On success Model::$data if its not empty or true, false on failure
@@ -238,6 +278,7 @@ class Simpletext extends SimpletextsAppModel {
 
 /**
  * 削除
+ * [NetCommons独自] ファンクション名 delete(動詞)+Simpletext(モデル名)
  *
  * @param array $data received post data
  * @return mixed On success Model::$data if its not empty or true, false on failure
