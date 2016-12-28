@@ -45,7 +45,7 @@ class SimpletextsController extends SimpletextsAppController {
  *
  * [NetCommons独自] 継承した親クラス NetCommonsAppControllerにも $uses 設定あり
  * NetCommonsAppControllerは、全てのプラグインのコントローラの共通の親クラスです。
- * SimpletextsController (継承)--> SimpletextsAppController (継承)--> (AppController)AppControllerNC.php (継承)--> NetCommonsAppController (継承)--> [Cakephpの決まり] Controller
+ * SimpletextsController (継承)--> SimpletextsAppController (継承)--> [NetCommons独自] (AppController)AppControllerNC.php (継承)--> [NetCommons独自] NetCommonsAppController (継承)--> [Cakephpの決まり] Controller
  * Plugin\NetCommons\Controller\NetCommonsAppController::$uses
  *
  * @var array
