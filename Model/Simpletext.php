@@ -112,7 +112,7 @@ class Simpletext extends SimpletextsAppModel {
 	public $validate = array();
 
 /**
- * [Cakephpの決まり] validate 実行前
+ * [Cakephpの決まり] validate 実行前に自動的に呼び出される
  * http://book.cakephp.org/2.0/ja/models/data-validation.html
  *
  * @param array $options Options passed from Model::save().
@@ -153,7 +153,7 @@ class Simpletext extends SimpletextsAppModel {
 	}
 
 /**
- * [Cakephpの決まり] 保存前
+ * [Cakephpの決まり] 保存前に自動的に呼び出される
  *
  * @param array $options Options passed from Model::save().
  * @return bool True if the operation should continue, false if it should abort
@@ -170,7 +170,10 @@ class Simpletext extends SimpletextsAppModel {
 			'SimpletextFrameSetting' => 'Simpletexts.SimpletextFrameSetting',
 		]);
 
-		//SimpletextSetting登録
+		// SimpletextSetting登録
+		//
+		// [cakephpの決まり] $this->saveSimpletext($data)にて、$this->save()をするまでに $this->set($data) をしているため、$this->dataに値がセットされている。
+		// そのため、beforeSave()で$this->dataで値が取得できる
 		if (isset($this->data['SimpletextSetting'])) {
 			// [cakephpの決まり] Model::set()
 			// http://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-set-one-two-null
@@ -180,7 +183,7 @@ class Simpletext extends SimpletextsAppModel {
 			$this->SimpletextSetting->save(null, false);
 		}
 
-		//SimpletextFrameSetting登録
+		// SimpletextFrameSetting登録
 		if (isset($this->data['SimpletextFrameSetting'])) {
 			$this->SimpletextFrameSetting->set($this->data['SimpletextFrameSetting']);
 			$this->SimpletextFrameSetting->save(null, false);
@@ -227,15 +230,20 @@ class Simpletext extends SimpletextsAppModel {
 		// [Cakephpの決まり] $this->find() DB検索
 		// http://book.cakephp.org/2.0/ja/models/retrieving-your-data.html#find
 		$simpletext = $this->find('first', array(
-			// [recursive] 下記URLはcakephp1.xのrecursive図だけど、cakephp2.xでも通用して、わかりやすいです
+			// [recursive] findでどこまで関連づけて取得するかの設定。0はこのモデルのhasOne,belongToのみ関連づけてデータを取ってくる
+			// 下記URLはcakephp1.xのrecursive図だけど、cakephp2.xでも通用して、わかりやすいです
 			// http://www.cpa-lab.com/tech/081
+			// http://book.cakephp.org/2.0/ja/models/model-attributes.html#recursive
 			'recursive' => 0,
+			// [conditions] 検索条件の配列
 			'conditions' => $this->getBlockConditionById($conditions),
 		));
+
+		// 取得結果が空や検索失敗(false)ならreturn
 		if (!$simpletext) {
 			return $simpletext;
 		}
-
+		// シンプルテキストデータに設定してある表示設定, ブロック設定をくっつけてreturn
 		$result = Hash::merge($simpletext, $this->SimpletextFrameSetting->getSimpletextFrameSetting(false));
 		$result = Hash::merge($result, $this->SimpletextSetting->getSimpletextSetting());
 		return $result;
