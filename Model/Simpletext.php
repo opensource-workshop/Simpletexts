@@ -258,25 +258,37 @@ class Simpletext extends SimpletextsAppModel {
  * @throws InternalErrorException
  */
 	public function saveSimpletext($data) {
+		// [Cakephpの決まり] トランザクション開始
 		//トランザクションBegin
 		$this->begin();
 
+		// [Cakephpの決まり] モデルに値をセットする
 		//バリデーション
 		$this->set($data);
+		// [Cakephpの決まり] 入力値チェック
+		// $this->validates() を実行することで、$this->beforeValidate()が自動実行され、入力値がチェックされる。
+		// 値がNGなら、saveしないでここでreturn false
 		/* @see beforeValidate() */
 		if (! $this->validates()) {
 			return false;
 		}
 
 		try {
+			// [Cakephpの決まり] 保存（登録or更新）
+			// 第一引数はdata。既に $this->set($data) で値をセットしているので、nullでOK。
+			// 第二引数はvalidate。既に $this->validates() で値チェックしているので、false
+			// [推測] ここでvalidateすると入力値エラーか、値不備によるsave失敗か、DB接続エラーなのか、判別つかないため
+			// このような形にしていると思われる。
 			if (! $simpletext = $this->save(null, false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
+			// [Cakephpの決まり] トランザクション終了 - 正常
 			//トランザクションCommit
 			$this->commit();
 
 		} catch (Exception $ex) {
+			// [Cakephpの決まり] トランザクション終了 - 異常
 			//トランザクションRollback
 			$this->rollback($ex);
 		}
