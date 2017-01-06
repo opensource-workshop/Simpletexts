@@ -58,7 +58,7 @@ class Simpletext extends SimpletextsAppModel {
 			// loadModels()とは、モデルで使える $this->loadModels() の事。ClassRegistry::init()を使ってモデルをnewして、クラス変数（$this->$model）にセットしてくれる。
 			// Plugin\NetCommons\Model\NetCommonsAppModel::loadModels()
 			// ブロック削除時（delete時）にblock_id, block_keyで紐づいてるデータ削除
-			// そのため、関連しているmodelはこのloadModelsに書いておけば、ブロック削除時に自動的に削除してくれる
+			// そのため、関連しているmodelはこのloadModelsに書いておき、BlockBehavior::deleteBlock()（ブロック削除）を呼び出せば削除してくれる
 			'loadModels' => array(
 				'BlockSetting' => 'Blocks.BlockSetting',
 			)
@@ -279,6 +279,7 @@ class Simpletext extends SimpletextsAppModel {
 			// 第二引数はvalidate。既に $this->validates() で値チェックしているので、false
 			// [推測] ここでvalidateすると入力値エラーか、値不備によるsave失敗か、DB接続エラーなのか、判別つかないため
 			// このような形にしていると思われる。
+			// https://book.cakephp.org/2.0/ja/models/saving-your-data.html
 			if (! $simpletext = $this->save(null, false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
@@ -311,13 +312,24 @@ class Simpletext extends SimpletextsAppModel {
 		try {
 			//Simpletextの削除
 			/** @see NetCommonsAppModel::$contentKey */
+			// [NetCommons独自] Behaviorで関連データ削除する際に使用する。らしい。
 			$this->contentKey = $data[$this->alias]['key'];
+			// [Cakephp] 削除条件にkeyを設定
+			// 第一引数の削除条件。$this->alias にこのモデルのテーブル別名がセットされているので、この書き方になる
 			$conditions = array($this->alias . '.key' => $data[$this->alias]['key']);
+			// [Cakephp] https://book.cakephp.org/2.0/ja/models/deleting-data.html#deleteall
+			// 第二引数のカスケード。デフォルトtrueなので false を設定。アソシエーション（$belongsToとか）で設定した関連するテーブルデータを消す。
+			//   このタイミングで消したくない（BlockBehaviorのloadModelsで指定した関連データを BlockBehavior::deleteBlock() で削除）のでfalse。
+			// 第三引数のコールバック。デフォルトfalseなので trueに設定。trueにしないとビヘイビアのbeforeDelete(), afterDelete()が動かない。
+			//   beforeDelete(), afterDelete()を使っているのは、ぱっと見 WorkflowCommentBehavior のみ。
 			if (! $this->deleteAll($conditions, false, true)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
 			//Blockデータ削除
+			// [NetCommonsの決まり] シンプルテキストはお知らせ系。
+			// お知らせはブロックと対の関係なので、お知らせデータ消したらブロックデータも消す。
+			// BlockBehaviorのloadModelsで指定したモデルも併せて消す。
 			/** @see BlockBehavior::deleteBlock() */
 			$this->deleteBlock($data['Block']['key']);
 
