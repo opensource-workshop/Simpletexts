@@ -19,19 +19,21 @@ App::uses('SimpletextsAppModel', 'Simpletexts.Model');
 class SimpletextFrameSetting extends SimpletextsAppModel {
 
 /**
- * Validation rules
+ * [Cakephpの決まり] Validation rules
  *
  * @var array
+ * @see Simpletext::$validate と説明同様
  */
 	public $validate = array();
 
 /**
- * validate 実行前
+ * [Cakephpの決まり] validate 実行前に自動的に呼び出される
  *
  * @param array $options Options passed from Model::save().
  * @return bool True if validate operation should continue, false to abort
  * @link http://book.cakephp.org/2.0/ja/models/callback-methods.html#beforevalidate
  * @see Model::save()
+ * @see Simpletext::beforeValidate() と説明同様
  */
 	public function beforeValidate($options = array()) {
 		$this->validate = Hash::merge($this->validate, array(
@@ -55,7 +57,8 @@ class SimpletextFrameSetting extends SimpletextsAppModel {
 	}
 
 /**
- * belongsTo associations
+ * [Cakephpの決まり] belongsTo associations
+ * アソシエーション: モデル同士を繋ぐ。link参照
  *
  * @var array
  * @link http://book.cakephp.org/2.0/ja/models/associations-linking-models-together.html アソシエーション: モデル同士を繋ぐ
@@ -74,21 +77,39 @@ class SimpletextFrameSetting extends SimpletextsAppModel {
 
 /**
  * 表示方法 取得
+ * [NetCommons独自] ファンクション名 get(動詞)+SimpletextFrameSetting(モデル名)
  *
  * @param bool $created If True, the results of the Model::find() to create it if it was null
  * @return array
  */
 	public function getSimpletextFrameSetting($created) {
+		// [NetCommons独自] Current::read()
+		// Plugin\NetCommons\Utility\Current::read()
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/NetCommons/classes/Current.html
+		// BlockやFrame, Pluginといった共通テーブルのデータがあるかチェックできるファンクション。
+		//
+		// NetCommonsの便利クラス Current
+		// - NetCommonsAppController::beforeFilter で初期処理が呼び出され、値が設定されます。
+		// - NetCommonsAppControllerは、全てのプラグインのコントローラの共通の親クラスなので、画面系ならコントローラーが動くので、コントローラー以降に動くモデルやビューでも Current クラスを使う事ができます。
 		$conditions = array(
 			'frame_key' => Current::read('Frame.key')
 		);
 
+		// [Cakephpの決まり] $this->find() DB検索
+		// 詳しくはこちら Plugin\Simpletexts\Model\Simpletext::getSimpletext()
 		$simpletextFrameSetting = $this->find('first', array(
 			'recursive' => -1,
 			'conditions' => $conditions,
 		));
 
+		// 新規作成でデータなしなら、新規作成
 		if ($created && ! $simpletextFrameSetting) {
+			// [Cakephpの決まり] $this->create() データ新規作成
+			// https://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-create-array-data-array
+			// $this->create()をすると
+			// ・空データを新規作成して取得できる
+			// ・モデル内のクラス変数初期化
+			// ・引数にデータをセットすると、取得する新規作成データにセットしてくれる
 			$simpletextFrameSetting = $this->create(array(
 				'frame_key' => Current::read('Frame.key'),
 			));
@@ -99,10 +120,12 @@ class SimpletextFrameSetting extends SimpletextsAppModel {
 
 /**
  * 表示方法 保存
+ * [NetCommons独自] ファンクション名 save(動詞)+SimpletextFrameSetting(モデル名)
  *
  * @param array $data received post data
  * @return mixed On success Model::$data if its not empty or true, false on failure
  * @throws InternalErrorException
+ * @see Simpletext::saveSimpletext() と説明同様
  */
 	public function saveSimpletextFrameSetting($data) {
 		//トランザクションBegin
