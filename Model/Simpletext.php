@@ -123,6 +123,8 @@ class Simpletext extends SimpletextsAppModel {
 	public function beforeValidate($options = array()) {
 		// [Cakephpの決まり] Hash::merge() - Arrayをマージします
 		// http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::merge
+		//  __d()はcakephpの多言語対応のグローバル関数
+		//  https://book.cakephp.org/2.0/ja/core-libraries/global-constants-and-functions.html#id2
 		$this->validate = Hash::merge($this->validate, array(
 			'language_id' => array(
 				'numeric' => array(
