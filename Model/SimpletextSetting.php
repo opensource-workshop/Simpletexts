@@ -51,7 +51,9 @@ class SimpletextSetting extends BlockBaseModel {
  * @var array
  */
 	public $actsAs = array(
-		// [NetCommons独自]
+		// [NetCommons独自] ブロック毎の操作許可（ブロックパーミッション）をsaveします
+		// Plugin\Blocks\Model\Behavior\BlockRolePermissionBehavior.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Blocks/classes/BlockRolePermissionBehavior.html
 		'Blocks.BlockRolePermission',
 		// [NetCommons独自] ブロック設定（縦持ちデータ）のcreate, save, deleteのファンクションや
 		// 自動的にvalidateするbeforeValidateを提供
@@ -67,30 +69,38 @@ class SimpletextSetting extends BlockBaseModel {
 
 /**
  * ブロック設定 新規作成
+ * [NetCommons独自] ファンクション名 create(動詞)+SimpletextSetting(モデル名)
  *
  * @return array
  * @see BlockSettingBehavior::createBlockSetting() 新規作成
  */
 	public function createSimpletextSetting() {
+		// [NetCommons独自] ブロック設定 新規作成
+		// Plugin\Blocks\Model\Behavior\BlockSettingBehavior::createBlockSetting()
 		return $this->createBlockSetting();
 	}
 
 /**
  * ブロック設定 取得
+ * [NetCommons独自] ファンクション名 get(動詞)+SimpletextSetting(モデル名)
  *
  * @return array
  * @see BlockSettingBehavior::getBlockSetting() 取得
  */
 	public function getSimpletextSetting() {
+		// [NetCommons独自] ブロック設定 取得
+		// Plugin\Blocks\Model\Behavior\BlockSettingBehavior::getBlockSetting()
 		return $this->getBlockSetting();
 	}
 
 /**
  * ブロック設定 保存
+ * [NetCommons独自] ファンクション名 save(動詞)+SimpletextSetting(モデル名)
  *
  * @param array $data リクエストデータ
  * @return bool
  * @throws InternalErrorException
+ * @see Simpletext::saveSimpletext() と説明同様
  */
 	public function saveSimpletextSetting($data) {
 		//トランザクションBegin
