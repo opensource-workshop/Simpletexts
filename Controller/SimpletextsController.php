@@ -99,12 +99,15 @@ class SimpletextsController extends SimpletextsAppController {
  * > ヘルパーはプレゼンテーションレイヤーのためのコンポーネントのようなクラスです。 多くのビューやエレメント、レイアウトで共有される表示ロジックを含んでいます。
  *
  * [NetCommons独自] 継承した親クラス NetCommonsAppControllerにも $helpers 設定あり
+ * Plugin\NetCommons\Controller\NetCommonsAppController::$helpers
  *
  * @var array
  * @see NetCommonsAppController::$helpers
  */
 	public $helpers = array(
-		'Workflow.Workflow',	// [NetCommons独自] 承認コメント入力に必要
+		// [NetCommons独自] 承認コメント入力に必要
+		// Plugin\Workflow\View\Helper\WorkflowHelper.php
+		'Workflow.Workflow',
 	);
 
 	// 以下の処理はシンプルテキストには不要でした。

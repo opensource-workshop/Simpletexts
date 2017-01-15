@@ -20,9 +20,11 @@ App::uses('SimpletextsAppController', 'Simpletexts.Controller');
 class SimpletextBlocksController extends SimpletextsAppController {
 
 /**
- * layout
+ * [Cakephpの決まり] layout
+ * http://book.cakephp.org/2.0/ja/views.html#view-layouts
  *
- * [NetCommonsプラグイン作成] 設定画面は下記必須
+ * [NetCommons独自] 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextFrameSettingsController::$layout
  *
  * @var array
  */
