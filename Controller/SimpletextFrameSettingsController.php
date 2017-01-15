@@ -21,17 +21,26 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
 
 /**
  * [Cakephpの決まり] layout
- * http://book.cakephp.org/2.0/ja/views.html#view-layouts
+ *
+ * [NetCommons独自] 謎。定義しなくても正常動作する。
+ * 設定画面は下記 $layout を指定する必要ありと思っていたが、
+ * NetCommonsプラグインのLayoutsディレクトリに setting.ctp は無かった。
+ * また、$layout を適当な文字列にしても動いており、機能していないと思われる。
+ * 継承先の NetCommonsAppController の $layout も同様だった。
+ * Plugin\NetCommons\Controller\NetCommonsAppController::$layout
  *
  * @var array
  */
 	public $layout = 'NetCommons.setting';
 
 /**
- * use component
+ * [Cakephpの決まり] use components
+ *
+ * [NetCommons独自] 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$components
  *
  * @var array
- */
+*/
 	public $components = array(
 		'NetCommons.Permission' => array(
 			//アクセスの権限
@@ -42,13 +51,17 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
 	);
 
 /**
- * use helpers
+ * [Cakephpの決まり] use helpers
+ *
+ * [NetCommons独自] 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$helpers
  *
  * @var array
  */
 	public $helpers = array(
 		// [NetCommons独自] 設定画面のタブ表示
 		// Plugin\Blocks\View\Helper\BlockTabsHelper.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Blocks/classes/BlockTabsHelper.html#method_beforeRender
 		'Blocks.BlockTabs' => array(
 			'mainTabs' => array('block_index', 'frame_settings'),
 			'blockTabs' => array('block_settings', 'mail_settings', 'role_permissions'),
@@ -64,14 +77,19 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
  * @return CakeResponse
  */
 	public function edit() {
+		// [Cakephpの決まり] 下記と説明同様
+		// Plugin\Simpletexts\Controller\SimpletextsController::edit()
 		if ($this->request->is('put') || $this->request->is('post')) {
+			// 登録、更新
+			// [Cakephpの決まり] $this->data - 受け取ったリクエストデータです
 			if ($this->SimpletextFrameSetting->saveSimpletextFrameSetting($this->data)) {
-				$this->redirect(NetCommonsUrl::backToPageUrl(true));
-				return;
+				return $this->redirect(NetCommonsUrl::backToPageUrl(true));
 			}
 			$this->NetCommons->handleValidationError($this->SimpletextFrameSetting->validationErrors);
 
 		} else {
+			// 初期データセット
+			// $this->request->dataにセットして、FormHelperを使う事で初期表示してくれる
 			$this->request->data = $this->SimpletextFrameSetting->getSimpletextFrameSetting(true);
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
