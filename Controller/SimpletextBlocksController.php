@@ -100,13 +100,17 @@ class SimpletextBlocksController extends SimpletextsAppController {
  * @throws Exception
  */
 	public function index() {
+		// [Cakephpの決まり] ページ制御 コンポーネント に 検索条件(conditions) をセット
 		$this->Paginator->settings = array(
 			/** @see BlockBehavior::getBlockIndexSettings() */
+			// Plugin\Blocks\Model\Behavior\BlockBehavior::getBlockIndexSettings()
+			// Simpletextモデルで読み込んでいる BlockBehavior のファンクション getBlockIndexSettings()を使って、ブロック一覧データを取得する検索条件をセット
 			'Simpletext' => $this->Simpletext->getBlockIndexSettings([
 				'conditions' => array('Simpletext.is_latest' => true)
 			])
 		);
 
+		// [Cakephpの決まり]
 		$simpletexts = $this->Paginator->paginate('Simpletext');
 		if (! $simpletexts) {
 			$this->view = 'Blocks.Blocks/not_found';
