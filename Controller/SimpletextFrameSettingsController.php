@@ -35,8 +35,7 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
 
 /**
  * [Cakephpの決まり] use components
- *
- * [NetCommons独自] 下記と説明同様
+ * 下記と説明同様
  * Plugin\Simpletexts\Controller\SimpletextsController::$components
  *
  * @var array
@@ -52,8 +51,7 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
 
 /**
  * [Cakephpの決まり] use helpers
- *
- * [NetCommons独自] 下記と説明同様
+ * 下記と説明同様
  * Plugin\Simpletexts\Controller\SimpletextsController::$helpers
  *
  * @var array
