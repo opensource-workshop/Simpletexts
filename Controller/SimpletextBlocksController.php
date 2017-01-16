@@ -31,7 +31,9 @@ class SimpletextBlocksController extends SimpletextsAppController {
 	public $layout = 'NetCommons.setting';
 
 /**
- * use model
+ * [Cakephpの決まり] use model
+ * 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$uses
  *
  * @var array
  */
@@ -42,11 +44,16 @@ class SimpletextBlocksController extends SimpletextsAppController {
 	);
 
 /**
- * use component
+ * [Cakephpの決まり] use components
+ * 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$components
  *
  * @var array
  */
 	public $components = array(
+		// [NetCommons独自] ワークフローで使うファンクション達
+		// Plugin\Workflow\Controller\Component\WorkflowComponent.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Workflow/classes/WorkflowComponent.html
 		'Workflow.Workflow',
 		'NetCommons.Permission' => array(
 			//アクセスの権限
@@ -54,22 +61,36 @@ class SimpletextBlocksController extends SimpletextsAppController {
 				'index,add,edit,delete' => 'block_editable',
 			),
 		),
-		'Paginator',	// ページャー
+		// [Cakephpの決まり] Paginator コンポーネント
+		// https://book.cakephp.org/2.0/ja/core-libraries/components/pagination.html
+		// > ページ制御
+		'Paginator',
 	);
 
 /**
- * use helpers
+ * [Cakephpの決まり] use helpers
+ * 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$helpers
  *
  * @var array
  */
 	public $helpers = array(
+		// [NetCommons独自] ブロック編集画面用Helper
+		// Plugin\Blocks\View\Helper\BlockFormHelper.php
 		'Blocks.BlockForm',
+		// [NetCommons独自] ブロック一覧用Helper
+		// Plugin\Blocks\View\Helper\BlockIndexHelper.php
 		'Blocks.BlockIndex',
+		// [NetCommons独自] 設定画面のタブ表示
+		// Plugin\Blocks\View\Helper\BlockTabsHelper.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Blocks/classes/BlockTabsHelper.html#method_beforeRender
 		'Blocks.BlockTabs' => array(
 			'mainTabs' => array('block_index', 'frame_settings'),
 			'blockTabs' => array('block_settings', 'mail_settings', 'role_permissions'),
 		),
-		'Workflow.Workflow',	// [NetCommonsプラグイン] ワークフローコメント入力
+		// [NetCommons独自] 承認コメント入力に必要
+		// Plugin\Workflow\View\Helper\WorkflowHelper.php
+		'Workflow.Workflow',
 	);
 
 /**
