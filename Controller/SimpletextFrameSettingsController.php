@@ -87,7 +87,7 @@ class SimpletextFrameSettingsController extends SimpletextsAppController {
 
 		} else {
 			// 初期データセット
-			// $this->request->dataにセットして、FormHelperを使う事で初期表示してくれる
+			// [Cakephpの決まり] $this->request->dataにセットして、FormHelperを使う事で初期表示してくれる
 			$this->request->data = $this->SimpletextFrameSetting->getSimpletextFrameSetting(true);
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
