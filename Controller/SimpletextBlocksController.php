@@ -101,6 +101,7 @@ class SimpletextBlocksController extends SimpletextsAppController {
  */
 	public function index() {
 		// [Cakephpの決まり] ページ制御 コンポーネント に 検索条件(conditions) をセット
+		// https://book.cakephp.org/2.0/ja/core-libraries/components/pagination.html#id3
 		$this->Paginator->settings = array(
 			/** @see BlockBehavior::getBlockIndexSettings() */
 			// Plugin\Blocks\Model\Behavior\BlockBehavior::getBlockIndexSettings()
@@ -110,14 +111,22 @@ class SimpletextBlocksController extends SimpletextsAppController {
 			])
 		);
 
-		// [Cakephpの決まり]
+		// [Cakephpの決まり] ページ制御された結果を返します。
+		// https://book.cakephp.org/2.0/ja/core-libraries/components/pagination.html#id2
 		$simpletexts = $this->Paginator->paginate('Simpletext');
 		if (! $simpletexts) {
+			// [Cakephpの決まり] 表示する画面（view）を指定できる
+			// [NetCommons独自] 0件なら、ブロック一覧でデータなし画面を表示
+			// Plugin\Blocks\View\Blocks\not_found.ctp
 			$this->view = 'Blocks.Blocks/not_found';
 			return;
 		}
+		// [Cakephpの決まり] Viewに値を渡します。Viewでは　$simpletexts で取得できます。
 		$this->set('simpletexts', $simpletexts);
 
+		// [Cakephpの決まり] $this->request->dataにセットして、FormHelperを使う事で初期表示してくれる
+		// [NetCommons独自] Frameテーブルの値をまるごと取得
+		// Plugin\NetCommons\Utility\Current::read()
 		$this->request->data['Frame'] = Current::read('Frame');
 	}
 
@@ -127,19 +136,56 @@ class SimpletextBlocksController extends SimpletextsAppController {
  * @return CakeResponse
  */
 	public function add() {
+		// [Cakephpの決まり] 表示する画面（view）を指定できる
 		$this->view = 'edit';
 
+		// [Cakephpの決まり]
+		// http://book.cakephp.org/2.0/ja/controllers/request-response.html#check-the-request
+		// > is('post') 現在のリクエストが POST かどうかを調べます。
 		if ($this->request->is('post')) {
+			// [Cakephpの決まり] $this->data - 受け取ったリクエストデータです
+			// 以下は同じものです。
+			// $this->data;
+			// $this->request->data;
 			$data = $this->data;
+			// [NetCommonsの決まり] $this->Workflow->parseStatus() - 承認状態を取得
+			// Plugin\Workflow\Controller\Component\WorkflowComponent::parseStatus()
 			$data['Simpletext']['status'] = $this->Workflow->parseStatus();
 
 			if ($this->Simpletext->saveSimpletext($data)) {
+				// 正常処理
+				//
+				// [Cakephpの決まり] 初期画面をリダイレクト表示します
+				// http://book.cakephp.org/2.0/ja/controllers.html#Controller::redirect
+				// vendors\cakephp\cakephp\lib\Cake\Controller\Controller::redirect()
+				//
+				// [NetCommonsの決まり] NetCommonsUrl::backToPageUrl() - 初期画面のURLを返します
+				// Plugin\NetCommons\Utility\NetCommonsUrl::backToPageUrl()
 				return $this->redirect(NetCommonsUrl::backToIndexUrl('default_setting_action'));
 			}
+			// 入力エラーあり
+			//
+			// [NetCommonsの決まり] エラーメッセージのフラッシュ表示（画面上部に一時的に表示されるメッセージ）と
+			// 入力項目下部にvalidationErrorsのエラーメッセージを表示します。
+			// Plugin\NetCommons\Controller\Component\NetCommonsComponent.php
+			//
+			// [Cakephpの決まり] $this->＜モデル＞->validationErrors
+			// 入力エラーだと validationErrors に配列でエラー内容がセットされます。
+			// 例）
+			//	[Simpletext] => Array
+			//	(
+			//		[textarea] => Array
+			//		(
+			//			[0] => 本文を入力してください。
+			//		)
+			//	)
 			$this->NetCommons->handleValidationError($this->Simpletext->validationErrors);
 
 		} else {
 			//表示処理(初期データセット)
+			// [Cakephpの決まり] $this->request->dataにセットして、FormHelperを使う事で初期表示してくれる
+			// [Cakephpの決まり] $this->＜モデル＞->createAll();
+			// https://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-create-array-data-array
 			$this->request->data = $this->Simpletext->createAll();
 			$this->request->data = Hash::merge($this->request->data,
 				$this->SimpletextSetting->getSimpletextSetting());
