@@ -55,6 +55,13 @@ class SimpletextBlocksController extends SimpletextsAppController {
 		// Plugin\Workflow\Controller\Component\WorkflowComponent.php
 		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Workflow/classes/WorkflowComponent.html
 		'Workflow.Workflow',
+		// [NetCommons独自] 各アクションのパーミッション(許可)制限
+		// Plugin\NetCommons\Controller\Component\PermissionComponent.php
+		// 下記の設定は、content_creatable（コンテンツ作成許可）ありのユーザのみ
+		// add,edit,deleteアクションを実行できる
+		//
+		// --- 備考
+		// NetCommonsでは登録するメインの内容（動画とか、お知らせなら本文とか）をコンテンツと呼んでいる
 		'NetCommons.Permission' => array(
 			//アクセスの権限
 			'allow' => array(
