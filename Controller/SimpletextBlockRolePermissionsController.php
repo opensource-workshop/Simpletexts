@@ -20,14 +20,20 @@ App::uses('SimpletextsAppController', 'Simpletexts.Controller');
 class SimpletextBlockRolePermissionsController extends SimpletextsAppController {
 
 /**
- * layout
+ * [Cakephpの決まり] layout
+ * http://book.cakephp.org/2.0/ja/views.html#view-layouts
+ *
+ * [NetCommons独自] 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextFrameSettingsController::$layout
  *
  * @var array
  */
 	public $layout = 'NetCommons.setting';
 
 /**
- * use model
+ * [Cakephpの決まり] use model
+ * 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$uses
  *
  * @var array
  */
@@ -38,11 +44,20 @@ class SimpletextBlockRolePermissionsController extends SimpletextsAppController 
 	);
 
 /**
- * use components
+ * [Cakephpの決まり] use components
+ * 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$components
  *
  * @var array
  */
 	public $components = array(
+		// [NetCommons独自] 各アクションのパーミッション(許可)制限
+		// Plugin\NetCommons\Controller\Component\PermissionComponent.php
+		// 下記の設定は、content_creatable（コンテンツ作成許可）ありのユーザのみ
+		// add,edit,deleteアクションを実行できる
+		//
+		// --- 備考
+		// NetCommonsでは登録するメインの内容（動画とか、お知らせなら本文とか）をコンテンツと呼んでいる
 		'NetCommons.Permission' => array(
 			'allow' => array(
 				'edit' => 'block_permission_editable',
@@ -51,12 +66,18 @@ class SimpletextBlockRolePermissionsController extends SimpletextsAppController 
 	);
 
 /**
- * use helpers
+ * [Cakephpの決まり] use helpers
+ * 下記と説明同様
+ * Plugin\Simpletexts\Controller\SimpletextsController::$helpers
  *
  * @var array
  */
 	public $helpers = array(
+		// [NetCommons独自]
 		'Blocks.BlockRolePermissionForm',
+		// [NetCommons独自] 設定画面のタブ表示
+		// Plugin\Blocks\View\Helper\BlockTabsHelper.php
+		// https://netcommons3.github.io/NetCommons3Docs/phpdoc/Blocks/classes/BlockTabsHelper.html#method_beforeRender
 		'Blocks.BlockTabs' => array(
 			'mainTabs' => array('block_index', 'frame_settings'),
 			'blockTabs' => array('block_settings', 'mail_settings', 'role_permissions'),
