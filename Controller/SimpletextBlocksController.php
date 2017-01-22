@@ -143,6 +143,7 @@ class SimpletextBlocksController extends SimpletextsAppController {
 		// http://book.cakephp.org/2.0/ja/controllers/request-response.html#check-the-request
 		// > is('post') 現在のリクエストが POST かどうかを調べます。
 		if ($this->request->is('post')) {
+			// --- 登録
 			// [Cakephpの決まり] $this->data - 受け取ったリクエストデータです
 			// 以下は同じものです。
 			// $this->data;
@@ -182,10 +183,14 @@ class SimpletextBlocksController extends SimpletextsAppController {
 			$this->NetCommons->handleValidationError($this->Simpletext->validationErrors);
 
 		} else {
-			//表示処理(初期データセット)
+			// --- 表示
+			//初期データセット
 			// [Cakephpの決まり] $this->request->dataにセットして、FormHelperを使う事で初期表示してくれる
 			// [Cakephpの決まり] $this->＜モデル＞->createAll();
+			// 関連するモデルも初期化したデータくれる
 			// https://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-create-array-data-array
+			// [Cakephpの決まり] Hash::merge() - Arrayをマージします
+			// http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::merge
 			$this->request->data = $this->Simpletext->createAll();
 			$this->request->data = Hash::merge($this->request->data,
 				$this->SimpletextSetting->getSimpletextSetting());
@@ -201,9 +206,16 @@ class SimpletextBlocksController extends SimpletextsAppController {
  * @return CakeResponse
  */
 	public function edit() {
+		// [Cakephpの決まり]
+		// http://book.cakephp.org/2.0/ja/controllers/request-response.html#check-the-request
+		// > is('put') 現在のリクエストが PUT かどうかを調べます。
 		if ($this->request->is('put')) {
+			// --- 更新
 			$data = $this->data;
 			$data['Simpletext']['status'] = $this->Workflow->parseStatus();
+			// [NetCommonsの決まり] cakephpの決まりで更新にはid必要
+			// しかしNetCommonsの決まりで、コンテンツは一時保存や承認前に表示できるように履歴を持っている。
+			// そのため、更新でも登録にするのため、idをunsetで消している
 			unset($data['Simpletext']['id']);
 
 			if ($this->Simpletext->saveSimpletext($data)) {
@@ -212,6 +224,7 @@ class SimpletextBlocksController extends SimpletextsAppController {
 			$this->NetCommons->handleValidationError($this->Simpletext->validationErrors);
 
 		} else {
+			// --- 表示
 			//初期データセット
 			$this->request->data = $this->Simpletext->getSimpletext();
 			$this->request->data = Hash::merge($this->request->data,
@@ -219,7 +232,9 @@ class SimpletextBlocksController extends SimpletextsAppController {
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
 
+		// [NetCommonsの決まり] 承認コメント取得
 		/** @see WorkflowCommentBehavior::getCommentsByContentKey() */
+		// Plugin\Workflow\Model\Behavior\WorkflowCommentBehavior::getCommentsByContentKey()
 		$comments = $this->Simpletext->getCommentsByContentKey(
 			$this->request->data['Simpletext']['key']
 		);
@@ -233,12 +248,17 @@ class SimpletextBlocksController extends SimpletextsAppController {
  * @return void
  */
 	public function delete() {
+		// [Cakephpの決まり]
+		// http://book.cakephp.org/2.0/ja/controllers/request-response.html#check-the-request
+		// > is('delete') 現在のリクエストが DELETE かどうかを調べます。
 		if ($this->request->is('delete')) {
 			if ($this->Simpletext->deleteSimpletext($this->data)) {
+				// 正常
 				return $this->redirect(NetCommonsUrl::backToIndexUrl('default_setting_action'));
 			}
 		}
 
+		// DELETE以外のリクエスト来たら異常
 		$this->throwBadRequest();
 	}
 }
