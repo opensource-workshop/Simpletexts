@@ -1,6 +1,6 @@
 # Simpletexts
 
-Simpletexts は [opensource-workshop](https://opensource-workshop.jp/) が作成した NetCommons3 の追加プラグインです。
+Simpletexts(シンプルテキスト)プラグイン は [opensource-workshop](https://opensource-workshop.jp/) が作成した NetCommons3 の追加プラグインです。
 
 入力した内容を「そのまま」表示します。
 
