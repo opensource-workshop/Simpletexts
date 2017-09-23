@@ -25,6 +25,8 @@ https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/Simple
 
 ### インストール
 
+#### githubからzipダウンロード
+
 (1) Pluginディレクトリ配下にSimpletestsプラグインのソースを配置します。ソースはgithubからzipをダウンロード後、解凍します
 ```
 配置例）/var/www/html/app/Plugin/Simpletexts
@@ -58,6 +60,13 @@ All migrations have completed.
 ```
 
 これで画面のプラグイン追加に、シンプルテキストが表示されます。
+
+#### composer
+
+```
+# cd /var/www/html
+$ php composer.phar install opensource-workshop/simpletexts
+```
 
 ### アンインストール
 
@@ -96,7 +105,7 @@ Not a valid migration version.
 
 |ディレクトリ・ファイル|説明|
 |---|---|
-|Config    |cakephpプラグインの関連。[CakeDC/migrationsプラグイン](https://github.com/CakeDC/migrations)のマイグレーションファイル関連ディレクトリ。cakeコマンドでデータベースのテーブル作成やデータ追加・更新等が出来る|
+|Config    |cakephpプラグイン関連。[CakeDC/migrationsプラグイン](https://github.com/CakeDC/migrations)のマイグレーションファイル関連ディレクトリ。cakeコマンドでデータベースのテーブル作成やデータ追加・更新等が出来る|
 |Controller|cakephpプラグイン関連。メイン処理関連のディレクトリ|
 |Locale    |cakephpプラグイン関連。言語ファイル関連のディレクトリ|
 |Model     |cakephpプラグイン関連。データベース関連のディレクトリ|
@@ -104,7 +113,7 @@ Not a valid migration version.
 |View      |cakephpプラグイン関連。画面関連のディレクトリ|
 |.gitignore|gitで管理しないファイルを記した設定ファイル|
 |LICENSE   |プログラムライセンスを記したテキストファイル|
-|README.md |github.comのリポジトリTOPページで表示される、マークダウン方式のReadMeファイル（当ファイル）|
+|composer.json |composer関連。[composer](https://github.com/NetCommons3/NetCommons3/wiki/composer)はPHPの依存管理ツールでこのファイルがあるとcomposerに対応している|
 
 ## 作業状況・残タスク
 
