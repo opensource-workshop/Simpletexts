@@ -7,9 +7,9 @@ HTMLチェックや自動修正を行わないことが特徴です。<br />
 
 * [ライセンス](#ライセンス)
 * [目的](#目的)
-* [プラグインインストール・アンインストール](#プラグインインストール・アンインストール)
+* [プラグインインストール・アンインストール](#プラグインインストールアンインストール)
 * [ディレクトリ説明](#ディレクトリ説明)
-* [作業状況・残タスク](#作業状況・残タスク)
+* [作業状況・残タスク](#作業状況残タスク)
 
 ## ライセンス
 
@@ -20,7 +20,7 @@ FreeBSD License は BSD 2-Clause Licenseです。[詳しくはこちら](https:/
 
 NetCommons3の追加プラグインの各処理で、どういった処理を行っているか理解を深める。
 
-初めてNetCommons3の追加プラグインを開発する方にもわかるように、下記のような感じで、ここは[Cakephpの決まり]、ここは[NetCommons独自]や[NetCommonsプラグイン]とコメント多めで作成しています。<br />
+初めてNetCommons3の追加プラグインを開発する方にもわかるように、下記のような感じで、ここは[Cakephpの決まり]、ここは[NetCommons独自]や[NetCommonsプラグイン]とコメント多めで作成しています。  
 https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/SimpletextsController.php
 
 少しでもNetCommons3プラグイン開発者の参考になるのであれば幸いです。
@@ -80,7 +80,7 @@ All migrations have completed.
 
 【ハッシュ値】はここからコピーして読み替えてください。
 https://github.com/opensource-workshop/Simpletexts/commits/master
-![ハッシュ値](https://github.com/opensource-workshop/Simpletexts/wiki/images/readme/ハッシュ値.PNG)
+![ハッシュ値](https://github.com/opensource-workshop/Simpletexts/wiki/images/readme/hash.PNG)
 
 ここのボタン押すと、ハッシュ値がコピーされます
 
@@ -156,7 +156,7 @@ $ php composer.phar install opensource-workshop/simpletexts
 
 ##### (2) migrationを実行
 
-[(2) cakeコマンドを使ってmigrationを実行する](#2-cake%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6migration%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%BE%E3%81%99)参照
+[cakeコマンドを使ってmigrationを実行する](#2-cake%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6migration%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%BE%E3%81%99)参照
 
 ### アンインストール
 
