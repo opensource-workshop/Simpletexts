@@ -53,7 +53,7 @@ class PluginRecords extends NetCommonsMigration {
 			array(
 				'language_id' => '2',									// 2=日本語
 				'key' => 'simpletexts',									// プラグインキー。自プラグイン名をスネーク記法で直書きする。日英同じ値
-				'namespace' => 'netcommons/simpletexts',				// packagist のパッケージ名。プラグイン管理でpackagistにリンク表示に利用。 日英同じ値
+				'namespace' => 'opensource-workshop/simpletexts',		// packagist のパッケージ名。プラグイン管理でpackagistにリンク表示に利用。 日英同じ値
 				'name' => 'シンプルテキスト',							// プラグイン名（日本語）
 				'type' => 1,											// 1=一般プラグイン, 2=管理プラグイン
 				'default_action' => 'simpletexts/view',					// 初期表示アクション
@@ -63,7 +63,7 @@ class PluginRecords extends NetCommonsMigration {
 			array(
 				'language_id' => '1',									// 1=英語
 				'key' => 'simpletexts',									// プラグインキー。自プラグイン名をスネーク記法で直書きする。日英同じ値
-				'namespace' => 'netcommons/simpletexts',				// packagist のパッケージ名。プラグイン管理でpackagistにリンク表示に利用。 日英同じ値
+				'namespace' => 'opensource-workshop/simpletexts',		// packagist のパッケージ名。プラグイン管理でpackagistにリンク表示に利用。 日英同じ値
 				'name' => 'Simpletexts',								// プラグイン名（英語）
 				'type' => 1,											// 1=一般プラグイン, 2=管理プラグイン
 				'default_action' => 'simpletexts/view',					// 初期表示アクション
