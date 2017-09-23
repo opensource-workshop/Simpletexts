@@ -1,0 +1,39 @@
+{
+  "name": "opensource-workshop/simpletexts",
+  "description": "Simpletexts for NetCommons Plugin",
+  "homepage": "https://opensource-workshop.jp/",
+  "type": "cakephp-plugin",
+  "extra": {
+    "installer-paths": {
+      "app/Plugin/{$name}": ["type:cakephp-plugin"]
+    }
+  },
+  "require": {
+    "cakedc/migrations":            "~2.2",
+    "netcommons/blocks":            "@dev",
+    "netcommons/mails":             "@dev",
+    "netcommons/net-commons":      "@dev",
+    "netcommons/pages":             "@dev",
+    "netcommons/plugin-manager":   "@dev",
+    "netcommons/topics":            "@dev",
+    "netcommons/workflow":          "@dev",
+    "netcommons/wysiwyg":           "@dev"
+  },
+  "license": "FreeBSD License",
+  "authors": [
+    {
+      "name": "Mitsuru Mutaguchi(OpenSource WorkShop)",
+      "email": "mutaguchi@opensource-workshop.jp",
+      "homepage": "https://opensource-workshop.jp/",
+      "role": "Developer"
+    },
+    {
+      "name": "OpenSource WorkShop",
+      "homepage": "https://opensource-workshop.jp/"
+    }
+  ],
+  "keywords":    ["cakephp", "simpletexts"],
+  "config": {
+    "vendor-dir": "vendors"
+  }
+}
