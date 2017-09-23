@@ -80,7 +80,7 @@ All migrations have completed.
 
 【ハッシュ値】は[このページ](https://github.com/opensource-workshop/Simpletexts/commits/master)からコピーして読み替えてください。
 
-![ハッシュ値](https://github.com/opensource-workshop/Simpletexts/wiki/images/readme/hash.PNG)
+![ハッシュ値](https://github.com/opensource-workshop/Simpletexts/wiki/images/readme/hash.jpg)
 
 開いたページで一番上の赤枠のボタン押すと、ハッシュ値がコピーされます
 
