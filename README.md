@@ -78,11 +78,11 @@ All migrations have completed.
 # vi /var/www/html/nc3/composer.lock
 ```
 
-【ハッシュ値】はここからコピーして読み替えてください。
-https://github.com/opensource-workshop/Simpletexts/commits/master
+【ハッシュ値】は[このページ](https://github.com/opensource-workshop/Simpletexts/commits/master)からコピーして読み替えてください。
+
 ![ハッシュ値](https://github.com/opensource-workshop/Simpletexts/wiki/images/readme/hash.PNG)
 
-ここのボタン押すと、ハッシュ値がコピーされます
+開いたページで一番上の赤枠のボタン押すと、ハッシュ値がコピーされます
 
 追記する内容
 ```
