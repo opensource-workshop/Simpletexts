@@ -33,11 +33,11 @@ https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/Simple
 
 ##### (1) composer require
 
-nc3をインストール後に追加でインストールする事を想定。  
+nc3をインストール後に追加でインストールする事を想定しています。  
 composer requireコマンドでプラグインの追加インストールを行います。
 
 ```
-$ cd /var/www/html
+$ cd /var/www/html/nc3/
 $ php composer.phar require --update-no-dev opensource-workshop/simpletexts:dev-master
 ```
 
