@@ -147,11 +147,14 @@ All migrations have completed.
 
 #### composerから
 
-##### (1) composer install
+##### (1) composer require
+
+nc3をインストール後に追加でインストールする事を想定。  
+composer requireコマンドでプラグインの追加インストールを行います。
 
 ```
 $ cd /var/www/html
-$ php composer.phar install opensource-workshop/simpletexts
+$ php composer.phar require opensource-workshop/simpletexts:dev-master
 ```
 
 ##### (2) migrationを実行
