@@ -29,6 +29,22 @@ https://github.com/opensource-workshop/Simpletexts/blob/master/Controller/Simple
 
 ### インストール
 
+#### composerから
+
+##### (1) composer require
+
+nc3をインストール後に追加でインストールする事を想定。  
+composer requireコマンドでプラグインの追加インストールを行います。
+
+```
+$ cd /var/www/html
+$ php composer.phar require --update-no-dev opensource-workshop/simpletexts:dev-master
+```
+
+##### (2) migrationを実行
+
+[cakeコマンドを使ってmigrationを実行する](#2-cake%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6migration%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%BE%E3%81%99)参照
+
 #### zipファイルから
 
 ##### (1) Pluginディレクトリ配下にSimpletestsプラグインのソースを配置します。
@@ -144,22 +160,6 @@ All migrations have completed.
             "time": "2017-09-23T13:24:34+00:00"
         },
 ```
-
-#### composerから
-
-##### (1) composer require
-
-nc3をインストール後に追加でインストールする事を想定。  
-composer requireコマンドでプラグインの追加インストールを行います。
-
-```
-$ cd /var/www/html
-$ php composer.phar require opensource-workshop/simpletexts:dev-master
-```
-
-##### (2) migrationを実行
-
-[cakeコマンドを使ってmigrationを実行する](#2-cake%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6migration%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%BE%E3%81%99)参照
 
 ### アンインストール
 
