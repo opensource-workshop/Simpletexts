@@ -47,8 +47,7 @@ $ php composer.phar require --update-no-dev opensource-workshop/simpletexts:dev-
 
 ##### (3) プラグインの一括アップデートをします
 
-[プラグインの一括アップデートをします](#)参照
-
+[プラグインの一括アップデートをします](#5-プラグインの一括アップデートをします)参照
 
 #### zipファイルから
 
