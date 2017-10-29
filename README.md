@@ -38,14 +38,10 @@ composer requireコマンドでプラグインの追加インストールを行�
 
 ```
 $ cd /var/www/html/nc3/
-$ php composer.phar require --update-no-dev --ignore-platform-reqs opensource-workshop/simpletexts:@dev
+$ php -d allow_url_fopen=1 composer.phar require --update-no-dev --ignore-platform-reqs opensource-workshop/simpletexts:@dev
 ```
 
-##### (2) migrationを実行
-
-[cakeコマンドを使ってmigrationを実行する](#2-cake%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6migration%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%BE%E3%81%99)参照
-
-##### (3) プラグインの一括アップデートをします
+##### (2) プラグインの一括アップデートをします
 
 [プラグインの一括アップデートをします](#5-プラグインの一括アップデートをします)参照
 
@@ -59,38 +55,7 @@ $ php composer.phar require --update-no-dev --ignore-platform-reqs opensource-wo
 配置例）/var/www/html/nc3/app/Plugin/Simpletexts
 ```
 
-##### (2) cakeコマンドを使ってmigrationを実行します。
-
-実行するとDBに初期データが登録されて、画面のプラグイン追加で、シンプルテキストが表示されるようになります。
-
-```
-# cd /var/www/html/nc3/app
-# Console/cake Migrations.migration run all -c master -p Simpletexts
-
-Cake Migration Shell
----------------------------------------------------------------
-You did not set a migration connection (-i), which connection do you want to use? (master/slave1/test)
-[master] >      (←空エンター)
-Running migrations:
-  [001] 001_plugin_records
-
-  [002] 002_mail_setting_records
-
-  [1476855904] 1476855904_init (2016-10-19 05:45:04)
-      > Creating table "simpletext_frame_settings".
-      > Creating table "simpletexts".
-
----------------------------------------------------------------
-All migrations have completed.
-```
-
-##### (3) DBキャッシュファイルのオーナーをapacheのオーナーに変更する
-
-```
-# chown -R apache:apache /var/www/html/nc3/app/tmp/cache/*
-```
-
-##### (4) composer.lockにSimpletestsプラグインの内容を追記する
+##### (2) composer.lockにSimpletestsプラグインの内容を追記する
 
 これをすると一括アップデートで削除されなくなります。
 
@@ -165,11 +130,17 @@ All migrations have completed.
         },
 ```
 
-##### (5) プラグインの一括アップデートをします
+##### (3) プラグインの一括アップデートをします
 
 ```
 # cd /var/www/html/nc3/app
 # Console/cake PluginManager.update_all
+```
+
+##### (4) DBキャッシュファイルのオーナーをapacheのオーナーに変更する
+
+```
+# chown -R apache:apache /var/www/html/nc3/app/tmp/cache/*
 ```
 
 ### アンインストール
@@ -203,6 +174,10 @@ You did not set a migration connection (-i), which connection do you want to use
 [master] >      (←空エンター)
 Not a valid migration version.
 ```
+
+##### (3) DBキャッシュファイルのオーナーをapacheのオーナーに変更する
+
+[DBキャッシュファイルのオーナーをapacheのオーナーに変更する](#4-cake%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6migration%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%BE%E3%81%99)参照
 
 これでアンインストール完了です。
 
