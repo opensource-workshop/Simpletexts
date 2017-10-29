@@ -38,7 +38,7 @@ composer requireコマンドでプラグインの追加インストールを行�
 
 ```
 $ cd /var/www/html/nc3/
-$ php composer.phar require --update-no-dev opensource-workshop/simpletexts:dev-master
+$ php composer.phar require --update-no-dev --ignore-platform-reqs opensource-workshop/simpletexts:@dev
 ```
 
 ##### (2) migrationを実行
