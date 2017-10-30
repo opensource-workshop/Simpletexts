@@ -134,7 +134,7 @@ $ php -d allow_url_fopen=1 composer.phar require --update-no-dev --ignore-platfo
 
 ```
 # cd /var/www/html/nc3/app
-# Console/cake PluginManager.update_all
+# Console/cake PluginManager.update_all update_all
 ```
 
 ##### (4) DBキャッシュファイルのオーナーをapacheのオーナーに変更する
